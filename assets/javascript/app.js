@@ -1,11 +1,14 @@
 window.onload = function(){
-    $('#start').on('click', countDn)
+    $('#start').on('click', showQuestionOne)
     //$('#start').on('click', question)
 };
 
 var intervalId;
 var countRunning = false;
 var time = 21;
+var correct = 0;
+var incorrect = 0;
+var unanswered = 0;
 
 var questions = [
     {
@@ -30,8 +33,10 @@ var questions = [
 var questionsTrack = questions.length;
 
 var showQuestionOne = function(){
+    countDn();
+    setTimeout(timeUp, 21000);
     var ans = questions[0].answer;
-    console.log(ans);
+
     $('#question').text(questions[0].question);
 
     for (var i = 0; i < questions[0].options.length; i++){
@@ -41,7 +46,50 @@ var showQuestionOne = function(){
             btn.attr('answer', questions[0].options[i]);
             btn.text(questions[0].options[i]);
             $('#btn-options').append(btn).append(brTag);   
+    };
+
+        function timeUp(){
+            setTimeout(showQuestionTwo, 5000);
+            $('#question').empty();
+            $('<button>').remove;
+            $('#question').append('<h2>Out of Time!</h2><span>The correct answer was: ' + ans + '</span>');
+        };
+   
+
+};
+
+var showQuestionTwo = function(){
+    setTimeout()
+    var ans = questions[1].answer;
+
+    $('#question').text(questions[1].question);
+
+    for (var i = 0; i < questions[1].options.length; i++){
+            var btn = $('<button>');
+            var brTag = $('<br>');
+            btn.addClass('options');
+            btn.attr('answer', questions[1].options[i]);
+            btn.text(questions[1].options[i]);
+            $('#btn-options').append(btn).append(brTag);   
     }
+
+};
+
+var showQuestionThree = function(){
+    setTimeout()
+    var ans = questions[2].answer;
+
+    $('#question').text(questions[2].question);
+
+    for (var i = 0; i < questions[2].options.length; i++){
+            var btn = $('<button>');
+            var brTag = $('<br>');
+            btn.addClass('options');
+            btn.attr('answer', questions[2].options[i]);
+            btn.text(questions[2].options[i]);
+            $('#btn-options').append(btn).append(brTag);   
+    }
+
 };
 
 function countDn(){
@@ -51,7 +99,6 @@ function countDn(){
     intervalId = setInterval(count, 1000);
     $('#timeRm').append('Time Remaining: ');
     $('#secs').append(' Seconds');
-    showQuestionOne();
     if (!countRunning){
     };
 
