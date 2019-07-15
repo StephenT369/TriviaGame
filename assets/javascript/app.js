@@ -39,6 +39,7 @@ var showQuestionOne = function(){
     var timeOutId = function(){setTimeout(timeUp, 21000);};
     var ans = questions[0].answer;
     timeOutId();
+    
     $('#question').text(questions[0].question);
 
     for (var i = 0; i < questions[0].options.length; i++){
@@ -49,28 +50,33 @@ var showQuestionOne = function(){
             btn.text(questions[0].options[i]);
             $('#btn-options').append(btn).append(brTag);   
     };
-    $('[answer]').on('click', function(event) {
+    $('[answer]').on('click', function() {
         var selected = $(this).attr('answer');
             if (selected == ans){
-                stop();
                 clearTimeout(timeOutId);
+                stop();
                 correct++;
                 $('#question').empty();
                 $('#btn-options').empty();
                 $('#question').append('<h2>Correct!</h2>');
                 setTimeout(showQuestionTwo, 5000);
 
-            } else {
-                stop();
+            } else if (selected != ans){
                 clearTimeout(timeOutId);
+                stop();
                 incorrect++;
                 $('#question').empty();
                 $('#btn-options').empty();
                 $('#question').append('<h2>Wrong!</h2><span>The correct answer was: ' + ans + '</span>');
                 setTimeout(showQuestionTwo, 5000);
+            } else {
+                timeUp();
             }
     });
-        function timeUp(){
+        
+    function timeUp(){
+            stop();
+            clearTimeout(timeOutId);
             setTimeout(showQuestionTwo, 5000);
             $('#question').empty();
             $('#btn-options').empty();
@@ -81,11 +87,12 @@ var showQuestionOne = function(){
 };
 
 var showQuestionTwo = function(){
+    clearTimeout(timeOutId);
     countDn();
-    setTimeout(timeUp, 21000);
+    
     var timeOutId = function(){setTimeout(timeUp, 21000);};
     var ans = questions[1].answer;
-
+    timeOutId();
     $('#question').text(questions[1].question);
 
     for (var i = 0; i < questions[1].options.length; i++){
@@ -96,28 +103,32 @@ var showQuestionTwo = function(){
             btn.text(questions[1].options[i]);
             $('#btn-options').append(btn).append(brTag);   
     };
-    $('[answer]').on('click', function(event) {
+    $('[answer]').on('click', function() {
         var selected = $(this).attr('answer');
             if (selected == ans){
-                stop();
                 clearTimeout(timeOutId);
+                stop();
                 correct++;
                 $('#question').empty();
                 $('#btn-options').empty();
                 $('#question').append('<h2>Correct!</h2>');
                 setTimeout(showQuestionThree, 5000);
 
-            } else {
-                stop();
+            } else if (selected != ans) {
                 clearTimeout(timeOutId);
+                stop();
                 incorrect++;
                 $('#question').empty();
                 $('#btn-options').empty();
                 $('#question').append('<h2>Wrong!</h2><span>The correct answer was: ' + ans + '</span>');
                 setTimeout(showQuestionThree, 5000);
+            } else {
+                timeUp();
             }
     });
     function timeUp(){
+        stop();
+        clearTimeout(timeOutId);
         setTimeout(showQuestionThree, 5000);
         $('#question').empty();
         $('#btn-options').empty();
@@ -127,11 +138,12 @@ var showQuestionTwo = function(){
 };
 
 var showQuestionThree = function(){
+    clearTimeout(timeOutId);
     countDn();
-    setTimeout(timeUp, 21000);
+    
     var timeOutId = function(){setTimeout(timeUp, 21000);};
     var ans = questions[2].answer;
-
+    timeOutId();
     $('#question').text(questions[2].question);
 
     for (var i = 0; i < questions[2].options.length; i++){
@@ -142,28 +154,32 @@ var showQuestionThree = function(){
             btn.text(questions[2].options[i]);
             $('#btn-options').append(btn).append(brTag);   
     };
-    $('[answer]').on('click', function(event) {
+    $('[answer]').on('click', function() {
         var selected = $(this).attr('answer');
             if (selected == ans){
-                stop();
                 clearTimeout(timeOutId);
+                stop();
                 correct++;
                 $('#question').empty();
                 $('#btn-options').empty();
                 $('#question').append('<h2>Correct!</h2>');
                 setTimeout(allDone, 5000);
 
-            } else {
-                stop();
+            } else if (selected != ans) {
                 clearTimeout(timeOutId);
+                stop();
                 incorrect++;
                 $('#question').empty();
                 $('#btn-options').empty();
                 $('#question').append('<h2>Wrong!</h2><span>The correct answer was: ' + ans + '</span>');
                 setTimeout(allDone, 5000);
+            } else {
+                timeUp();
             }
     });
     function timeUp(){
+        stop();
+        clearTimeout(timeOutId);
         setTimeout(allDone, 5000);
         $('#question').empty();
         $('#btn-options').empty();
@@ -173,6 +189,7 @@ var showQuestionThree = function(){
 };
 
 function allDone(){
+    
     $('#question').empty();
     $('#question').append('<h2>All done, here are your scores!</h2><br>');
     $('#question').append('Correct Answers: '+ correct +'<br>');
