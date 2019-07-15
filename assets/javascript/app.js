@@ -34,6 +34,8 @@ var questionsTrack = questions.length;
 
 var showQuestionOne = function(){
     countDn();
+    $('#timeRm').append('Time Remaining: ');
+    $('#secs').append(' Seconds');
     setTimeout(timeUp, 21000);
     var ans = questions[0].answer;
 
@@ -51,15 +53,14 @@ var showQuestionOne = function(){
         function timeUp(){
             setTimeout(showQuestionTwo, 5000);
             $('#question').empty();
-            $('<button>').remove;
+            $('#btn-options').empty();
             $('#question').append('<h2>Out of Time!</h2><span>The correct answer was: ' + ans + '</span>');
         };
-   
-
 };
 
 var showQuestionTwo = function(){
-    setTimeout()
+    countDn();
+    setTimeout(timeUp, 21000);
     var ans = questions[1].answer;
 
     $('#question').text(questions[1].question);
@@ -71,12 +72,19 @@ var showQuestionTwo = function(){
             btn.attr('answer', questions[1].options[i]);
             btn.text(questions[1].options[i]);
             $('#btn-options').append(btn).append(brTag);   
-    }
+    };
 
+    function timeUp(){
+        setTimeout(showQuestionThree, 5000);
+        $('#question').empty();
+        $('#btn-options').empty();
+        $('#question').append('<h2>Out of Time!</h2><span>The correct answer was: ' + ans + '</span>');
+    };
 };
 
 var showQuestionThree = function(){
-    setTimeout()
+    countDn();
+    setTimeout(timeUp, 21000);
     var ans = questions[2].answer;
 
     $('#question').text(questions[2].question);
@@ -88,17 +96,22 @@ var showQuestionThree = function(){
             btn.attr('answer', questions[2].options[i]);
             btn.text(questions[2].options[i]);
             $('#btn-options').append(btn).append(brTag);   
-    }
+    };
+
+    function timeUp(){
+        $('#question').empty();
+        $('#btn-options').empty();
+        $('#question').append('<h2>Out of Time!</h2><span>The correct answer was: ' + ans + '</span>');
+    };
 
 };
 
 function countDn(){
+    time = 21;
     clearInterval(intervalId);
     $('#start').remove();
     $('#timeCntr').text('21');
     intervalId = setInterval(count, 1000);
-    $('#timeRm').append('Time Remaining: ');
-    $('#secs').append(' Seconds');
     if (!countRunning){
     };
 
@@ -112,6 +125,7 @@ $('#timeCntr').text(time);
 console.log(time);
 
 if (time <= 0){
+    
     stop();
 }
 };
